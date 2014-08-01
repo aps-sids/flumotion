@@ -63,6 +63,25 @@
       </wizard>
     </component>
 
+    <component type="mp4-muxer" base="flumotion/component/muxers"
+               _description="Muxes encoded feeds into an MP4 feed.">
+      <source location="flumotion.component.muxers.mp4"/>
+      <feeder name="default"/>
+      <eater name="default" multiple="yes"/>
+      <entries>
+        <entry type="component" location="mp4.py"
+               function="MP4"/>
+        <entry type="wizard" location="wizard_gtk.py"
+               function="MP4WizardPlugin"/>
+      </entries>
+      <wizard _description="MP4" type="muxer"
+              feeder="default" eater="default">
+        <accept-format media-type="h264"/>
+        <accept-format media-type="aac"/>
+        <accept-format media-type="mp3"/>
+        <provide-format media-type="mp4" />
+      </wizard>
+    </component>
   </components>
 
   <bundles>
@@ -85,6 +104,7 @@
                 <filename location="multipart.py" />
                 <filename location="ogg.py" />
                 <filename location="webm.py" />
+                <filename location="mp4.py" />
                 <filename location="checks.py" />
                 <filename location="wizard_gtk.py" />
             </directory>

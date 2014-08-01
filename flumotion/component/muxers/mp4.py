@@ -15,25 +15,22 @@
 #
 # Headers in this file shall remain intact.
 
-"""Wizard plugin for the ogg, multipart and webm muxers
-"""
-
-from flumotion.component.muxers import base
+from flumotion.common import messages
+from flumotion.common.i18n import N_, gettexter
+from flumotion.component import feedcomponent
+from flumotion.worker.checks import check
 
 __version__ = "$Rev$"
+T_ = gettexter()
 
 
-class OggWizardPlugin(base.MuxerPlugin):
-    requirements = ['oggmux']
+class MP4(feedcomponent.MuxerComponent):
+    checkTimestamp = True
 
+    def do_check(self):
+        return check.do_check(self, check.checkPlugin, 'isomp4',
+                              'gst-plugins-ugly', (0, 10, 24))
 
-class MultipartWizardPlugin(base.MuxerPlugin):
-    requirements = ['multipartmux']
-
-
-class WebMWizardPlugin(base.MuxerPlugin):
-    requirements = ['webmmux']
-
-
-class MP4MWizardPlugin(base.MuxerPlugin):
-    requirements = ['mp4mux']
+    def get_muxer_string(self, properties):
+        muxer = 'mp4mux name=muxer streamable=true'
+        return muxer
